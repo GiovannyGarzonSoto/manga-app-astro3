@@ -1,0 +1,18 @@
+---
+// import { Image } from "astro:assets"
+// import menuIcon from '../images/menu.svg'
+---
+<img class="menu-icon" src="../../public/menu.svg" alt="menu-icon"/>
+
+<style lang="scss">
+    .menu-icon {
+        display: none;
+        width: 2.4rem;
+        height: 2.4rem;
+        z-index: 4;
+
+        @media (width <=760px) {
+            display: block;
+        }
+    }
+</style>

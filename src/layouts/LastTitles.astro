@@ -1,0 +1,233 @@
+---
+import { API_URL } from "../config/consts";
+const data = await fetch(`${API_URL}/chapter`, {
+    headers: {
+        "Content-Type": "application/json",
+    },
+});
+const chapters = await data.json();
+
+console.log(chapters);
+---
+
+<div class="last-titles">
+    <header class="header">
+        <h3 class="header__title">Ponte al día</h3>
+        <a class="header__tag tag">Todo lo Reciente &#x276D;</a>
+    </header>
+
+    <section class="titles">
+        {
+            chapters.lenght > 0 ? (
+                chapters.map((chapter) => (
+                    <div class="title">
+                        <div class="title__image-box">
+                            <img
+                                class="title__image"
+                                src={chapter.manga.images.cover}
+                                alt=""
+                            />
+                            <span class="title__name">
+                                {chapter.manga.title}
+                            </span>
+                            <span class="title__author">
+                                {chapter.author.name}
+                            </span>
+                        </div>
+                        <div class="title__info">
+                            <span class="title__number">#</span>
+                            <span class="title__premiere">Hoy</span>
+                            <span class="title__chapter">
+                                Capítulo {chapter.number} {chapter.title}
+                            </span>
+                        </div>
+                    </div>
+                ))
+            ) : (
+                <p>Cargando...</p>
+            )
+        }
+    </section>
+</div>
+
+<style lang="scss">
+    .last-titles {
+        width: 100%;
+        height: 80vh;
+
+        .header {
+            display: flex;
+            width: 100%;
+            height: 6.4rem;
+            padding: 1.6rem 0 1.6rem 1.6rem;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 300;
+            background: linear-gradient(to right, #010101, #0d0d0d);
+            color: white;
+        }
+
+        .titles {
+            height: 100%;
+            width: 100%;
+            padding: 1.6rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+            gap: 1.2rem;
+            background-color: #0d0d0d;
+
+            .title {
+                display: flex;
+                flex-direction: column;
+                height: 24rem;
+                width: 14rem;
+                justify-content: flex-start;
+
+                &__image-box {
+                    flex-grow: 1;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    background: linear-gradient(
+                        to top,
+                        rgb(5, 5, 5) 0%,
+                        rgba(0, 0, 0, 0.295) 80%,
+                        rgba(0, 213, 255, 0) 100%
+                    );
+
+                    &:hover {
+                        &::after {
+                            content: "";
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            background: linear-gradient(
+                                to top,
+                                #0e0101 0%,
+                                #b009145a 40%,
+                                #db0f190c 100%
+                            );
+                            z-index: 1;
+                        }
+                    }
+
+                    &::after {
+                        content: "";
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        background: linear-gradient(
+                            to top,
+                            rgb(5, 5, 5) 0%,
+                            rgba(0, 0, 0, 0.295) 40%,
+                            rgba(0, 213, 255, 0) 100%
+                        );
+                        z-index: 1;
+
+                        &:hover {
+                            background: linear-gradient(
+                                to top,
+                                rgb(5, 5, 5) 0%,
+                                rgba(0, 0, 0, 0.295) 80%,
+                                rgba(0, 213, 255, 0) 100%
+                            );
+                        }
+                    }
+                }
+
+                &__image {
+                    height: 20rem;
+                }
+
+                &__name {
+                    color: white;
+                    font-size: 1.2rem;
+                    bottom: 24px;
+                }
+
+                &__author {
+                    color: #75706a;
+                    bottom: 8px;
+                }
+
+                &__name,
+                &__author {
+                    position: absolute;
+                    left: 8px;
+                    z-index: 2;
+                    &:hover {
+                        opacity: 1;
+                    }
+                }
+
+                &__info {
+                    max-width: 16rem;
+                    height: 4.8rem;
+                    background-color: #010101;
+                    border-top: 1px solid #75706a;
+                    border-radius: 0 0 8px 8px;
+                    color: white;
+                    padding: 0.6rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-around;
+                    position: relative;
+                    transition: border-top 0.15s linear;
+
+                    &:hover {
+                        border-top: 1px solid #a00000c5;
+                        background: linear-gradient(
+                            to bottom,
+                            #01010100 2%,
+                            #a00000c5 100%
+                        );
+                    }
+                }
+
+                &__info-hover {
+                    border-top: 1px solid #a00000c5;
+                    background: linear-gradient(
+                        to bottom,
+                        #01010100 2%,
+                        #a00000c5 100%
+                    );
+                }
+
+                &__number {
+                    font-weight: 700;
+                    font-size: 1.4rem;
+                }
+
+                &__premiere {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    margin: 0.4rem 0;
+                    padding: 0.1rem 0.4rem 0.1rem 1.25rem;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    background: linear-gradient(
+                        to right,
+                        #01010100 0%,
+                        #a00000c9 80%,
+                        #a00000 100%
+                    );
+                }
+
+                &__chapter {
+                    color: #75706a;
+                    font-weight: 500;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+</style>

@@ -1,0 +1,152 @@
+---
+// import { Image } from "astro:assets"
+// import Logo from "../images/logo-full.png"
+import Layout from "../layouts/Layout.astro";
+import MenuIcon from "../components/MenuIcon.astro";
+import SearchIcon from "../components/SearchIcon.astro";
+---
+
+<Layout>
+    <nav class="nav animated-banner">
+        <MenuIcon />
+        <a class="nav__logo"
+            ><img src="../../public/logo-full.png" alt="logo"/></a
+        >
+        <a class="nav__item">Reciente</a>
+        <a class="nav__item">Destacados</a>
+        <a class="nav__item">Descubre</a>
+        <a class="nav__item" href="https://medibang.com/mpc/" target="__blank"
+            >Creators</a
+        >
+        <a class="nav__item">Favoritos</a>
+        <a
+            class="nav__item"
+            href="https://www.shonenjump.com/mangaplus/whatismangaplus/"
+            target="__blank">Sobre</a
+        >
+        <form
+            class="nav__search"
+        >
+            <input
+                class="nav__search-input input"
+                maxlength="24"
+                type="text"
+                placeholder="Buscar por serie o autor"
+            />
+        </form>
+        <SearchIcon/>
+    </nav>
+</Layout>
+
+<style lang="scss">
+    .nav {
+        border-top: var(--brd-top-size) solid #a00000;
+        background: rgba(0, 0, 0, 0.179);
+        padding: 0.8rem 2.2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: var(--height-nav);
+        gap: 4rem;
+
+        @media (width <= 1100px) {
+            gap: 1.4rem;
+        }
+
+        &__logo {
+            align-self: flex-start;
+
+            img {
+                width: 14.8rem;
+            }
+        }
+
+        &__item {
+            font-size: 1.4rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #adadad;
+            position: relative;
+            text-decoration: none;
+
+            @media (width <= 900px) {
+                font-size: 1.2rem;
+            }
+
+            &:hover {
+                color: var(--color-yellow);
+                transform: translateY(1px);
+
+                &::before {
+                    content: "";
+                    width: 100%;
+                    height: var(--brd-top-size);
+                    background-color: var(--color-yellow);
+                    position: absolute;
+                    top: -46px;
+                    left: 0;
+                }
+            }
+
+            @media (width <= 760px) {
+                display: none;
+            }
+        }
+
+        .nav__menu {
+            fill: white;
+        }
+
+        &__search {
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            &-input {
+                width: 20rem;
+                border: none;
+                border-bottom: 1px solid #adadad;
+                outline: none;
+                font-size: 1.44rem;
+                background-color: #0000003b;
+                padding: 0.8rem;
+                caret-color: #adadad;
+                transition: border-bottom 0.4s;
+                color: #adadad;
+                background-image: url("../../../public/search.svg");
+                background-position: right;
+                background-repeat: no-repeat;
+                background-size: 10%;
+
+                &:focus {
+                    border-bottom: 1px solid #a00000;
+                }
+            }
+
+            //on input-seach
+            @media (width <= 1200px) {
+                display: none;
+            }
+        }
+    }
+
+    .animated-banner::before {
+        content: "";
+        position: absolute;
+        width: auto;
+        height: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        animation: slideToLeft 100s infinite linear;
+        background-repeat: no-repeat;
+        background-size: unset;
+        background: black;
+        background-image: url(../../public/header-banner.png);
+        z-index: -1;
+    }
+</style>
